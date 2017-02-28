@@ -1,0 +1,57 @@
+[
+    {
+        "Name": "Apple",
+        "Price": 0.75,
+        "Id": "produce-0001"
+    },
+    {
+        "Name": "Orange",
+        "Price": 0.50,
+        "Id": "produce-0002"
+    },
+    {
+        "Name": "Banana",
+        "Price": 1.00,
+        "Id": "produce-0003"
+    },
+    {
+        "Name": "Pear",
+        "Price": 1.50,
+        "Id": "produce-0004"
+    },
+    {
+        "Name": "Peaches",
+        "Price": 1.20,
+        "Id": "produce-0005"
+    },
+    {
+        "Name": "Ground Beef",
+        "Price": 4.50,
+        "Id": "meat-0001"
+    },
+    {
+        "Name": "Turkey Slices",
+        "Price": 6.50,
+        "Id": "meat-0001"
+    },
+    {
+        "Name": "Chocolate Bar",
+        "Price": 3.00,
+        "Id": "bakery-0001"
+    },
+    {
+        "Name": "Mango Juice",
+        "Price": 4.75,
+        "Id": "drink-0001"
+    },
+    {
+        "Name": "Apple Juice",
+        "Price": 3.75,
+        "Id": "drink-0002"
+    },
+    {
+        "Name": "Chicken Noodle Soup",
+        "Price": 2.00,
+        "Id": "canned-0001"
+    }
+]
