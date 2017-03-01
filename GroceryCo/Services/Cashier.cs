@@ -28,17 +28,24 @@ namespace GroceryCo.Services
                             && promotion.CalculateExpirationDate() > DateTime.Today)
                     {
                         decimal discountForPurchase = ApplyPromotion(item, promotion);
-                        purchaseTotal = purchaseTotal - discountForPurchase;
 
-                        itemsStub.AppendFormat("{0,-15}{1:C}{2}", "\t\tPROMO " + promotion.Type + "\t-", discountForPurchase, "\n");
+                        if (discountForPurchase != 0)
+                        {
+                            purchaseTotal = purchaseTotal - discountForPurchase;
+
+                            string promotionType = promotion.Type.ToString();
+                            if (promotionType.Length > 9)
+                            {
+                                promotionType = promotionType.Substring(0, 9);
+                            }
+
+                            itemsStub.AppendFormat("{0,-10}{1:C}{2}", "\t\tPROMO " + promotionType + "\t-", discountForPurchase, "\n");
+                        }
                     }
                 }
             }
 
-            string totalStub = Receipt.GenerateTotalStub(purchaseTotal);
-
-            Console.WriteLine(itemsStub);
-            Console.WriteLine(totalStub);
+            Receipt.PrintReceipt(itemsStub.ToString(), purchaseTotal);
         }
 
         private static decimal ApplyPromotion(Item item, Promotion promotion)
