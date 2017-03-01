@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace GroceryCo.Services
 {
     public static class Receipt
     {
-        public static string GenerateTotal(decimal total)
+        public static string GenerateTotalStub(decimal total)
         {
             StringBuilder builder = new StringBuilder();
 
             builder.Append("\t----------------------------------------");
 
-            builder.AppendLine("TOTAL: ");
-            builder.AppendFormat("{0:C} ", total);
+            builder.AppendFormat("{0,-35}{1:C} ", "\n\tTOTAL: ", total);
       
-            builder.Append("\t----------------------------------------");
+            builder.Append("\n\t----------------------------------------");
 
             return builder.ToString();
         }

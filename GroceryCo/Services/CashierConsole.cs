@@ -1,6 +1,8 @@
 ﻿using GroceryCo.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace GroceryCo.Services
 {
@@ -14,25 +16,100 @@ namespace GroceryCo.Services
 
         private void StartCheckout()
         {
-            //Json the price catalog into items to get most recent prices...
-            //allItems list from json...create items
-
-            //LIMITATION: No current interface for user to add promotions 
-            //Create an OnSale promotion for apples into allPromotions list
+            List<Item> purchasedItems = new List<Item>();
             List<Promotion> allPromotions = new List<Promotion>();
+            
+            string[] basketContents = GetBasketContents();
+            JArray priceCatalog = GetPriceCatalog();
+            JArray promotions = GetPromotions();
 
-            var basketContents = GetBasketContents();
-            if (basketContents != null && basketContents.Length != 0)
+            var itemName = "";
+            decimal itemPrice = 0;
+
+            if (basketContents != null && basketContents.Length != 0 && priceCatalog != null && priceCatalog.Count != 0)
             {
-                List<Item> purchasedItems = new List<Item>();
-
                 foreach (string basketItem in basketContents)
                 {
-                    //if basketItem matches an allItem by Name add to purchasedItems 
+                    //Check basketItem against the content in priceCatalog
+                    foreach (JObject content in priceCatalog.Children<JObject>())
+                    {
+                        itemName = (string)content.GetValue("Name");
+                 
+                        if (itemName.ToUpper() == basketItem.ToUpper())
+                        {
+                            itemPrice = (decimal)content.GetValue("Price");
+
+                            //Load purchasedItems list
+                            purchasedItems.Add(new Item(itemName, itemPrice));
+                        }
+                    }
+                }
+
+                //Load allPromotions list
+                foreach (JObject content in promotions.Children<JObject>())
+                {
+                    PromotionType promotionType = null;
+
+                    switch ((string)content.GetValue("Type"))
+                    {
+                        case "OnSale":
+                            promotionType = PromotionType.OnSale;
+                            break;
+                        case "GroupSale":
+                            promotionType = PromotionType.GroupSale;
+                            break;
+                        case "BOGOFree":
+                            promotionType = PromotionType.BOGOFree;
+                            break;
+                        case "BOGOPercent":
+                            promotionType = PromotionType.BOGOPercent;
+                            break;
+                    }
+
+                    allPromotions.Add(new Promotion(
+                        (string)content.GetValue("Name"), (string)content.GetValue("ItemName"), promotionType, 
+                        (DateTime)content.GetValue("BeginDate"), (int)content.GetValue("DaysValid"), 
+                        (decimal)content.GetValue("Discount"), (int)content.GetValue("RequiredItems")));
                 }
 
                 Cashier.DoCheckout(purchasedItems, allPromotions);
             }
+            else
+            {
+                Console.WriteLine("Sorry, there has been an error with your purchase!");
+            }  
+        }
+
+        private JArray GetPromotions()
+        {
+            JArray promotions;
+
+            try
+            {
+                promotions = JArray.Parse(File.ReadAllText("../../Files/Promotions.json"));
+            }
+            catch
+            {
+                throw new Exception("Unable to Read in Promotions");
+            }
+
+            return promotions;
+        }
+
+        private JArray GetPriceCatalog()
+        {
+            JArray priceCatalog;
+
+            try
+            {
+                priceCatalog = JArray.Parse(File.ReadAllText("../../Files/PriceCatalog.json"));
+            }
+            catch
+            {
+                throw new Exception("Unable to Read in Price Catalog");
+            }
+            
+            return priceCatalog;
         }
 
         private string[] GetBasketContents()
@@ -41,7 +118,7 @@ namespace GroceryCo.Services
 
             try
             {
-                basketContents = System.IO.File.ReadAllLines("../../Files/Baskets/basket-02.txt");
+                basketContents = File.ReadAllLines("../../Files/Baskets/basket-01.txt");
             }
             catch
             {

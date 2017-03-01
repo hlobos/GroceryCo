@@ -1,0 +1,38 @@
+[
+    {
+        "Name": "Apple Quick Sale: All Apples at 50 Cents",
+        "ItemName": "Apple",
+        "Type": "OnSale",
+        "BeginDate": "02/28/2017 00:00:00",
+        "DaysValid": 14,
+        "Discount": 0.50,
+        "RequiredItems": 1
+    },
+    {
+        "Name": "Orange Bundle: Buy Three Oranges for $2",
+        "ItemName": "Orange",
+        "Type": "GroupSale",
+        "BeginDate": "03/02/2017 00:00:00",
+        "DaysValid": 21,
+        "Discount": 2.00,
+        "RequiredItems": 3
+    },
+    {
+        "Name": "Banana Blowout: Buy One get One Free",
+        "ItemName": "Banana",
+        "Type": "BOGOFree",
+        "BeginDate": "03/02/2017 00:00:00",
+        "DaysValid": 7,
+        "Discount": 0,
+        "RequiredItems": 2
+    },
+    {
+        "Name": "Pear Savings: Buy One Pear get One 50% OFF",
+        "ItemName": "Pear",
+        "Type": "BOGOPercent",
+        "BeginDate": "03/02/2017 00:00:00",
+        "DaysValid": 3,
+        "Discount": 50,
+        "RequiredItems": 2
+    }
+]

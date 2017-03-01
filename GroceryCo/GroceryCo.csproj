@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,16 +57,19 @@
     <Compile Include="Services\Cashier.cs" />
     <Compile Include="Services\CashierConsole.cs" />
     <Compile Include="Services\Receipt.cs" />
-    <Compile Include="Services\Console.cs" />
+    <Compile Include="Services\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Files\Promotions.json" />
     <None Include="Files\PriceCatalog.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="Files\Baskets\basket-01.txt" />
     <Content Include="Files\Baskets\basket-02.txt" />
+    <Content Include="Files\Baskets\basket-04.txt" />
     <Content Include="Files\Baskets\basket-03.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

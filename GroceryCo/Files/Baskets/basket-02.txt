@@ -1,6 +1,6 @@
 Apple
-Orange 
 Banana
+Orange
 Apple
 Pear
 Peaches
