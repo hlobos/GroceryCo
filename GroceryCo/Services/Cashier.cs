@@ -48,24 +48,28 @@ namespace GroceryCo.Services
             Receipt.PrintReceipt(itemsStub.ToString(), purchaseTotal);
         }
 
-        private static decimal ApplyPromotion(Item item, Promotion promotion)
+        public static decimal ApplyPromotion(Item item, Promotion promotion)
         {
             decimal discount = 0;
 
-            switch (promotion.Type.ToString())
+            if (item != null && promotion != null && item.Name.ToString().ToUpper() == promotion.ItemName.ToUpper() &&
+                   promotion.BeginDate <= DateTime.Today && promotion.CalculateExpirationDate() > DateTime.Today)
             {
-                case "OnSale":
-                    discount = item.Price - promotion.Discount;
-                    break;
-                case "GroupSale":
-                    //discount = (item.Price * promotion.RequiredItems) - promotion.Discount;
-                    break;
-                case "BOGOFree":
-                    //discount = item.Price;
-                    break;
-                case "BOGOPercent":
-                    //discount = (promotion.Discount / 100) * item.Price;
-                    break;
+                switch (promotion.Type.ToString())
+                {
+                    case "OnSale":
+                        discount = item.Price - promotion.Discount;
+                        break;
+                    case "GroupSale":
+                        //discount = (item.Price * promotion.RequiredItems) - promotion.Discount;
+                        break;
+                    case "BOGOFree":
+                        //discount = item.Price;
+                        break;
+                    case "BOGOPercent":
+                        //discount = (promotion.Discount / 100) * item.Price;
+                        break;
+                }
             }
 
             return discount;
