@@ -2,7 +2,9 @@
 The following is a Prototype Check-Out System created within a 3-day coding exercise.
 
 ###NuGet Packages Used:
-- **Newtonsoft.Json**, for reading in PriceCatalog.json and Promotions.json files.
+- **Newtonsoft.Json**, for reading in PriceCatalog.json and Promotions.json files
+- **NUnit 3.6.1**, for Unit Testing
+- **NUnit 3 Test Adapter**, for running Unit Tests in Visual Studio 2015
 
 ###Installation/Notes:
 - Project Solution can be opened in Visual Studio 2015
@@ -13,6 +15,9 @@ The following is a Prototype Check-Out System created within a 3-day coding exer
 
 ###Limitations:
 - Advanced promotions (GroupSale, BOGOFree, BOGOPercent) have been added to the Promotions Model, calculations on applying the discount exist at (Cashier --> ApplyPromotions()) but return 0 (not implemented). My goal was to start small scale, getting OnSale promotions working fully. When reaching the advanced promotions afterwards my roadblock was on how to keep a clean group count of every individual basket item. But I feel there exists a better way, more research is needed to come up with a better idea.  
+
+###Unit Testing
+- First hand try writing unit tests with NUnit, therefore UnitTests are lacking. Focused on (Cashier --> ApplyPromotion) to strengthen that method as applying promotions to items is an important function for GroceryCo.
 
 ###Assumptions Made:
 - Unordered list of Basket items (/Files/Basket/---.json) are assumed to be formatted by one item per line.
